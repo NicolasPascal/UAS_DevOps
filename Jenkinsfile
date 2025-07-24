@@ -1,11 +1,6 @@
 pipeline {
   agent any
   stages {
-    stage('Clone') {
-      steps {
-        git 'https://github.com/NicolasPascal/UAS_DevOps.git'
-      }
-    }
     stage('Build Image') {
       steps {
         sh 'docker build -t inventory-app:latest .'
@@ -13,7 +8,7 @@ pipeline {
     }
     stage('Unit Test') {
       steps {
-        sh 'pytest tests/'  // atau 'mvn test'
+        sh 'pytest tests/'  // atau 'mvn test' jika pakai Java
       }
     }
     stage('Code Scan') {
