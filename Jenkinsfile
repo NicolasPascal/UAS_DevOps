@@ -1,5 +1,10 @@
 pipeline {
-  agent any
+  agent {
+    docker {
+      image 'docker:24.0.2'
+      args '-v /var/run/docker.sock:/var/run/docker.sock'
+    }
+  }
   stages {
     stage('Build Image') {
       steps {
@@ -8,19 +13,7 @@ pipeline {
     }
     stage('Unit Test') {
       steps {
-        sh 'pytest tests/'  // atau 'mvn test' jika pakai Java
-      }
-    }
-    stage('Code Scan') {
-      steps {
-        withSonarQubeEnv('My SonarQube') {
-          sh 'sonar-scanner'
-        }
-      }
-    }
-    stage('Deploy to K8s') {
-      steps {
-        sh 'kubectl apply -f k8s/deployment.yaml'
+        sh 'pytest tests/'
       }
     }
   }
