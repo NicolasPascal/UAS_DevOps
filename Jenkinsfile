@@ -3,7 +3,7 @@ pipeline {
   stages {
     stage('Clone') {
       steps {
-        git 'https://github.com/user/inventory-app.git'
+        git 'https://github.com/NicolasPascal/UAS_DevOps.git'
       }
     }
     stage('Build Image') {
